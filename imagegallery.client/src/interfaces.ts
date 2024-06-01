@@ -24,7 +24,7 @@ export interface FormInput<T> {
 }
 
 export interface TableColumn<T> {
-    field: keyof T;
+    field?: keyof T;
     label: string;
     type?: 'image'
 }

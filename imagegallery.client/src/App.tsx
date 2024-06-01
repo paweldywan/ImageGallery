@@ -94,7 +94,6 @@ const App = () => {
                     label: 'Description'
                 },
                 {
-                    field: 'extension',
                     label: 'Image',
                     type: 'image'
                 }
