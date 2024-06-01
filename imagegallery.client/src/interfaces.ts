@@ -1,10 +1,7 @@
-export interface SimpleImage {
+export interface Image {
     id: number;
-    extension: string;
-}
-
-export interface Image extends SimpleImage {
     fileName: string;
+    extension: string;
     title: string;
     description: string;
 }
@@ -24,7 +21,7 @@ export interface FormInput<T> {
 }
 
 export interface TableColumn<T> {
-    field?: keyof T;
+    field: keyof T;
     label: string;
     type?: 'image'
 }

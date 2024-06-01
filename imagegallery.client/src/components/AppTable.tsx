@@ -4,7 +4,6 @@ import {
 } from "reactstrap";
 
 import {
-    SimpleImage,
     TableAction,
     TableColumn
 } from "../interfaces";
@@ -32,8 +31,8 @@ const AppTable = <T,>({
         >
             <thead>
                 <tr>
-                    {columns.map((column, i) => (
-                        <th key={i}>{column.label}</th>
+                    {columns.map(column => (
+                        <th key={column.field.toString()}>{column.label}</th>
                     ))}
                     {actions && <th>Actions</th>}
                 </tr>
@@ -42,10 +41,10 @@ const AppTable = <T,>({
             <tbody>
                 {data.map(row =>
                     <tr key={String(row[keyField])}>
-                        {columns.map((column, i) => (
-                            <td key={i}>
+                        {columns.map(column => (
+                            <td key={column.field.toString()}>
                                 {column.type === 'image' ? (
-                                    <img src={`Images/${(row as SimpleImage).id}${(row as SimpleImage).extension}`} />
+                                    <img src={String(row[column.field])} />
                                 ) : (
                                     String(row[column.field])
                                 )}
