@@ -1,3 +1,5 @@
+import { Image } from './interfaces';
+
 export const getImages = async () => {
     const response = await fetch('api/image');
 
@@ -10,7 +12,7 @@ export const addImage = (formData: FormData) =>
         body: formData
     });
 
-export const deleteImage = (id: number) =>
-    fetch(`api/image/${id}`, {
+export const deleteImage = (image: Image) =>
+    fetch(`api/image/${image.id}`, {
         method: 'DELETE'
     });

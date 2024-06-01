@@ -12,9 +12,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.css';
 
 import {
-    Button,
     Container,
-    Table
 } from 'reactstrap';
 
 import {
@@ -24,6 +22,8 @@ import {
 } from './requests';
 
 import AppForm from './components/AppForm';
+
+import AppTable from './components/AppTable';
 
 const App = () => {
     const [data, setData] = useState<Image[]>();
@@ -63,8 +63,8 @@ const App = () => {
         });
     };
 
-    const executeDeleteImage = async (id: number) => {
-        await deleteImage(id);
+    const executeDeleteImage = async (image: Image) => {
+        await deleteImage(image);
 
         await executeGetImages();
     };
@@ -75,45 +75,39 @@ const App = () => {
 
     const contents = data === undefined
         ? <p><em>Loading...</em></p>
-        : <Table
-            striped
-            hover
-            responsive
-            bordered
-            dark
-        >
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>FileName</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {data.map(image =>
-                    <tr key={image.id}>
-                        <td>{image.id}</td>
-                        <td>{image.fileName}</td>
-                        <td>{image.title}</td>
-                        <td>{image.description}</td>
-                        <td>
-                            <img src={`Images/${image.id}${image.extension}`} />
-                        </td>
-                        <td>
-                            <Button
-                                color="link"
-                                onClick={() => executeDeleteImage(image.id)}
-                            >
-                                Delete
-                            </Button>
-                        </td>
-                    </tr>
-                )}
-            </tbody>
-        </Table>;
+        : <AppTable
+            columns={[
+                {
+                    field: 'id',
+                    label: 'Id'
+                },
+                {
+                    field: 'fileName',
+                    label: 'FileName'
+                },
+                {
+                    field: 'title',
+                    label: 'Title'
+                },
+                {
+                    field: 'description',
+                    label: 'Description'
+                },
+                {
+                    field: 'extension',
+                    label: 'Image',
+                    type: 'image'
+                }
+            ]}
+            data={data}
+            keyField="id"
+            actions={[
+                {
+                    label: 'Delete',
+                    onClick: executeDeleteImage
+                }
+            ]}
+        />;
 
     return (
         <Container fluid>
