@@ -14,10 +14,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {
     Button,
     Container,
-    Form,
-    FormGroup,
-    Input,
-    Label,
     Table
 } from 'reactstrap';
 
@@ -26,6 +22,8 @@ import {
     deleteImage,
     getImages
 } from './requests';
+
+import AppForm from './components/AppForm';
 
 const App = () => {
     const [data, setData] = useState<Image[]>();
@@ -121,57 +119,30 @@ const App = () => {
         <Container fluid>
             <h1>Image gallery</h1>
 
-            <Form
+            <AppForm
+                inputs={[
+                    {
+                        field: 'file',
+                        label: 'File',
+                        type: 'file',
+                        key: 'fileKey'
+                    },
+                    {
+                        field: 'title',
+                        label: 'Title'
+                    },
+                    {
+                        field: 'description',
+                        label: 'Description',
+                        type: 'textarea'
+                    }
+                ]}
+                buttonText="Upload"
+                data={imageToAdd}
+                setData={setImageToAdd}
                 onSubmit={executeAddImage}
                 className="mb-3"
-            >
-                <FormGroup>
-                    <Label for="file">File</Label>
-
-                    <Input
-                        type="file"
-                        name="file"
-                        id="file"
-                        onChange={event => setImageToAdd(prevState => ({
-                            ...prevState,
-                            file: event.target.files![0]
-                        }))}
-                        key={imageToAdd.fileKey}
-                    />
-                </FormGroup>
-
-                <FormGroup>
-                    <Label for="title">Title</Label>
-
-                    <Input
-                        type="text"
-                        name="title"
-                        id="title"
-                        value={imageToAdd.title}
-                        onChange={event => setImageToAdd(prevState => ({
-                            ...prevState,
-                            title: event.target.value
-                        }))}
-                    />
-                </FormGroup>
-
-                <FormGroup>
-                    <Label for="description">Description</Label>
-
-                    <Input
-                        type="textarea"
-                        name="description"
-                        id="description"
-                        value={imageToAdd.description}
-                        onChange={event => setImageToAdd(prevState => ({
-                            ...prevState,
-                            description: event.target.value
-                        }))}
-                    />
-                </FormGroup>
-
-                <Button>Upload</Button>
-            </Form>
+            />
 
             {contents}
         </Container>
