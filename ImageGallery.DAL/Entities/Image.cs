@@ -6,6 +6,8 @@
 
         public required string FileName { get; set; }
 
+        public required string Extension { get; set; }
+
         public string? Title { get; set; }
 
         public string? Description { get; set; }

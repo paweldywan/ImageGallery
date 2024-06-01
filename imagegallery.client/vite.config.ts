@@ -46,6 +46,10 @@ export default defineConfig({
             '^/api': {
                 target,
                 secure: false
+            },
+            '^/Images': {
+                target,
+                secure: false
             }
         },
         port: 5173,

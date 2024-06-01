@@ -1,5 +1,7 @@
-
+using ImageGallery.BLL.Interfaces;
+using ImageGallery.BLL.Services;
 using ImageGallery.DAL;
+using Microsoft.Extensions.FileProviders;
 
 namespace ImageGallery.Server
 {
@@ -9,18 +11,25 @@ namespace ImageGallery.Server
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            var services = builder.Services;
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            var configuration = builder.Configuration;
 
-            builder.Services.AddScoped<ImageGallerySeeder>();
+            var environment = builder.Environment;
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            services.AddControllers();
 
-            builder.Services.AddSqlServer<ImageGalleryContext>(connectionString, o => o.MigrationsAssembly("ImageGallery.DAL"));
+            services.AddEndpointsApiExplorer();
+
+            services.AddSwaggerGen();
+
+            services.AddScoped<ImageGallerySeeder>();
+
+            services.AddScoped<IImageService, ImageService>();
+
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            services.AddSqlServer<ImageGalleryContext>(connectionString, o => o.MigrationsAssembly("ImageGallery.DAL"));
 
             var app = builder.Build();
 
@@ -33,19 +42,29 @@ namespace ImageGallery.Server
             seeder.Migrate().Wait();
 
             app.UseDefaultFiles();
+
             app.UseStaticFiles();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            var currentDirectory = Directory.GetCurrentDirectory();
+
+            var imagesDirectory = Path.Combine(currentDirectory, "Images");
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(imagesDirectory),
+                RequestPath = "/Images"
+            });
+
+            if (environment.IsDevelopment())
             {
                 app.UseSwagger();
+
                 app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
