@@ -8,10 +8,15 @@ namespace ImageGallery.BLL.Services
 {
     public class ImageService(ImageGalleryContext context) : IImageService
     {
-        public async Task Add(FileModel model)
+        private static string GetPath(Image image)
         {
             var currentDirectory = Directory.GetCurrentDirectory();
 
+            return Path.Combine(currentDirectory, "Images", $"{image.Id}{image.Extension}");
+        }
+
+        public async Task Add(FileModel model)
+        {
             var file = model.File;
 
             var fileName = file.FileName;
@@ -30,9 +35,7 @@ namespace ImageGallery.BLL.Services
 
             await context.SaveChangesAsync();
 
-            var fileId = entity.Id;
-
-            var path = Path.Combine(currentDirectory, "Images", $"{fileId}{extension}");
+            var path = GetPath(entity);
 
             using var stream = File.OpenWrite(path);
 
@@ -50,9 +53,7 @@ namespace ImageGallery.BLL.Services
 
             await context.SaveChangesAsync();
 
-            var currentDirectory = Directory.GetCurrentDirectory();
-
-            var path = Path.Combine(currentDirectory, "Images", $"{id}{entity.Extension}");
+            var path = GetPath(entity);
 
             File.Delete(path);
         }
