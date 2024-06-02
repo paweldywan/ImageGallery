@@ -14,15 +14,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.css';
 
 import {
-    Button,
-    Card,
-    CardBody,
-    CardSubtitle,
-    CardText,
-    CardTitle,
-    Col,
     Container,
-    Row
 } from 'reactstrap';
 
 import {
@@ -34,6 +26,8 @@ import {
 import AppForm from './components/AppForm';
 
 import AppTable from './components/AppTable';
+
+import AppGrid from './components/AppGrid';
 
 const App = () => {
     const [data, setData] = useState<Image[]>();
@@ -129,38 +123,21 @@ const App = () => {
                     <h1>Carousel</h1>
                 </div>
             ) : (
-                <Row>
-                    {data.map(image => (
-                        <Col key={image.id} className="my-2" xs="auto">
-                            <Card inverse color="dark">
-                                <img src={image.url} alt={image.title} />
-
-                                <CardBody>
-                                    <CardTitle tag="h5">
-                                        {image.fileName}
-                                    </CardTitle>
-
-                                    <CardSubtitle
-                                        className="mb-2 text-muted"
-                                        tag="h6"
-                                    >
-                                        {image.title}
-                                    </CardSubtitle>
-
-                                    <CardText>
-                                        {image.description}
-                                    </CardText>
-
-                                    <Button
-                                        onClick={() => executeDeleteImage(image)}
-                                    >
-                                        Delete
-                                    </Button>
-                                </CardBody>
-                            </Card>
-                        </Col>
-                    ))}
-                </Row>
+                <AppGrid
+                    cards={data.map(image => ({
+                        title: image.fileName,
+                        subtitle: image.title,
+                        text: image.description,
+                        image: {
+                            title: image.title,
+                            url: image.url
+                        },
+                        button: {
+                            label: 'Delete',
+                            onClick: () => executeDeleteImage(image)
+                        }
+                    }))}
+                />
             );
 
     return (

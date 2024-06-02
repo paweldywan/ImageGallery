@@ -48,3 +48,20 @@ export enum ImageGaleryView {
 export interface ImageGallerySettings {
     view: ImageGaleryView;
 }
+
+export interface GridButton {
+    label: string;
+    onClick: () => void;
+}
+export interface GridImage {
+    title: string;
+    url: string;
+}
+
+export interface GridCard {
+    title?: string;
+    subtitle?: string;
+    text?: string;
+    button?: GridButton;
+    image?: GridImage;
+}

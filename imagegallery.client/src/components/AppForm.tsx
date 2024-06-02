@@ -35,7 +35,7 @@ const AppForm = <T,>({
             className={className}
         >
             {[...new Set(inputs.map(i => i.group))].map((group, i) => (
-                <Row {...(rowsProps && rowsProps[i])}>
+                <Row key={i} {...(rowsProps && rowsProps[i])}>
                     {inputs.filter(i => i.group === group).map(input => (
                         <FormGroup key={input.field.toString()}>
                             <Label for={input.field.toString()}>{input.label}</Label>
