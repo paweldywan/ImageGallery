@@ -32,12 +32,7 @@ namespace ImageGallery.BLL.Services
 
             var fileId = entity.Id.ToString();
 
-            var directory = Path.Combine(currentDirectory, "Images");
-
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
-
-            var path = Path.Combine(directory, $"{fileId}{extension}");
+            var path = Path.Combine(currentDirectory, "Images", $"{fileId}{extension}");
 
             using var stream = File.OpenWrite(path);
 

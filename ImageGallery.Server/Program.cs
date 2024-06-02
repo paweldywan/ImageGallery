@@ -49,6 +49,9 @@ namespace ImageGallery.Server
 
             var imagesDirectory = Path.Combine(currentDirectory, "Images");
 
+            if (!Directory.Exists(imagesDirectory))
+                Directory.CreateDirectory(imagesDirectory);
+
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(imagesDirectory),
