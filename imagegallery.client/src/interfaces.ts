@@ -4,6 +4,7 @@ export interface Image {
     extension: string;
     title: string;
     description: string;
+    url: string;
 }
 
 export interface ImageToAdd {
