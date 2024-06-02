@@ -14,11 +14,18 @@ export interface ImageToAdd {
     fileKey: number;
 }
 
+interface Option {
+    value: number;
+    label: string;
+}
+
 export interface FormInput<T> {
     field: keyof T;
-    type?: 'text' | 'file' | 'textarea';
+    type?: 'text' | 'file' | 'textarea' | 'select';
     label: string;
     key?: keyof T;
+    options?: Option[];
+    group?: number;
 }
 
 export interface TableColumn<T> {
@@ -30,4 +37,14 @@ export interface TableColumn<T> {
 export interface TableAction<T> {
     label: string;
     onClick: (data: T) => void;
+}
+
+export enum ImageGaleryView {
+    Table,
+    Grid,
+    Carousel
+}
+
+export interface ImageGallerySettings {
+    view: ImageGaleryView;
 }
