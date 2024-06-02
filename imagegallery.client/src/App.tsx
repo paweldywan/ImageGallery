@@ -29,6 +29,8 @@ import AppTable from './components/AppTable';
 
 import AppGrid from './components/AppGrid';
 
+import AppCarousel from './components/AppCarousel';
+
 const App = () => {
     const [data, setData] = useState<Image[]>();
 
@@ -119,9 +121,14 @@ const App = () => {
             />
         )
             : settings.view === ImageGaleryView.Carousel ? (
-                <div>
-                    <h1>Carousel</h1>
-                </div>
+                <AppCarousel
+                    items={data.map(image => ({
+                        src: image.url,
+                        altText: image.title,
+                        header: image.title,
+                        text: image.description
+                    }))}
+                />
             ) : (
                 <AppGrid
                     cards={data.map(image => ({

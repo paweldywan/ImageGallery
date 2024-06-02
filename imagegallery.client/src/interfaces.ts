@@ -65,3 +65,10 @@ export interface GridCard {
     button?: GridButton;
     image?: GridImage;
 }
+
+export interface CarouselElement {
+    src: string;
+    altText: string;
+    header?: string;
+    text?: string;
+}
