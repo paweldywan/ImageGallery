@@ -46,23 +46,21 @@ const AppCarousel = ({
         setActiveIndex(newIndex);
     };
 
-    const slides = items.map((item) => {
-        return (
-            <CarouselItem
-                onExiting={() => setAnimating(true)}
-                onExited={() => setAnimating(false)}
-                key={item.src}
-            >
-                <img src={item.src} alt={item.altText} />
+    const slides = items.map((item) => (
+        <CarouselItem
+            onExiting={() => setAnimating(true)}
+            onExited={() => setAnimating(false)}
+            key={item.src}
+        >
+            <img src={item.src} alt={item.altText} />
 
-                {item.header &&
-                    <CarouselCaption
-                        captionText={item.text}
-                        captionHeader={item.header}
-                    />}
-            </CarouselItem>
-        );
-    });
+            {item.header &&
+                <CarouselCaption
+                    captionText={item.text}
+                    captionHeader={item.header}
+                />}
+        </CarouselItem>
+    ));
 
     return (
         <Carousel
