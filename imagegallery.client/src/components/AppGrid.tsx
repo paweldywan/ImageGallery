@@ -25,7 +25,7 @@ const AppGrid = ({
             {cards.map((card, i) => (
                 <Col key={i} className="my-2" xs="auto">
                     <Card inverse color="dark">
-                        {card.image && <img src={card.image.url} alt={card.image.title} />}
+                        {card.image && <img src={card.image.src} alt={card.image.alt} />}
 
                         <CardBody>
                             {card.title &&

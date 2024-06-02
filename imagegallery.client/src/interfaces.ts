@@ -54,8 +54,8 @@ export interface GridButton {
     onClick: () => void;
 }
 export interface GridImage {
-    title: string;
-    url: string;
+    alt: string;
+    src: string;
 }
 
 export interface GridCard {

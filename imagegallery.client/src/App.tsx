@@ -129,8 +129,8 @@ const App = () => {
                         subtitle: image.title,
                         text: image.description,
                         image: {
-                            title: image.title,
-                            url: image.url
+                            alt: image.title,
+                            src: image.url
                         },
                         button: {
                             label: 'Delete',
