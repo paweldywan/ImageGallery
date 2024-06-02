@@ -132,7 +132,7 @@ const App = () => {
                 <Row>
                     {data.map(image => (
                         <Col key={image.id} className="my-2" xs="auto">
-                            <Card>
+                            <Card inverse color="dark">
                                 <img src={image.url} alt={image.title} />
 
                                 <CardBody>
