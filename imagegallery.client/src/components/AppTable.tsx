@@ -46,7 +46,7 @@ const AppTable = <T,>({
                                 {column.type === 'image' ? (
                                     <img src={String(row[column.field])} />
                                 ) : (
-                                    String(row[column.field])
+                                    row[column.field] !== null ? String(row[column.field]) : null
                                 )}
                             </td>
                         ))}
