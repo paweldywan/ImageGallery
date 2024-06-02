@@ -17,7 +17,7 @@ namespace ImageGallery.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm] FileModel model)
+        public async Task<IActionResult> Post([FromForm] ImageModel model)
         {
             await imageService.Add(model);
 

@@ -2,7 +2,7 @@
 
 namespace ImageGallery.BLL.Models
 {
-    public class FileModel
+    public class ImageModel
     {
         public string? Title { get; set; }
 

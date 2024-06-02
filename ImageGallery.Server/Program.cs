@@ -1,3 +1,4 @@
+using ImageGallery.BLL;
 using ImageGallery.BLL.Interfaces;
 using ImageGallery.BLL.Services;
 using ImageGallery.DAL;
@@ -22,6 +23,8 @@ namespace ImageGallery.Server
             services.AddEndpointsApiExplorer();
 
             services.AddSwaggerGen();
+
+            services.AddAutoMapper(typeof(ImageGalleryMappingProfile).Assembly);
 
             services.AddScoped<ImageGallerySeeder>();
 

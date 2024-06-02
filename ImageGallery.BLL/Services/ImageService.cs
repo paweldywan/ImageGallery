@@ -1,4 +1,5 @@
-﻿using ImageGallery.BLL.Interfaces;
+﻿using AutoMapper;
+using ImageGallery.BLL.Interfaces;
 using ImageGallery.BLL.Models;
 using ImageGallery.DAL;
 using ImageGallery.DAL.Entities;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ImageGallery.BLL.Services
 {
-    public class ImageService(ImageGalleryContext context) : IImageService
+    public class ImageService(ImageGalleryContext context, IMapper mapper) : IImageService
     {
         private static string GetPath(Image image)
         {
@@ -15,21 +16,9 @@ namespace ImageGallery.BLL.Services
             return Path.Combine(currentDirectory, "Images", $"{image.Id}{image.Extension}");
         }
 
-        public async Task Add(FileModel model)
+        public async Task Add(ImageModel model)
         {
-            var file = model.File;
-
-            var fileName = file.FileName;
-
-            var extension = Path.GetExtension(fileName);
-
-            var entity = new Image
-            {
-                FileName = fileName,
-                Extension = extension,
-                Title = model.Title,
-                Description = model.Description
-            };
+            var entity = mapper.Map<Image>(model);
 
             context.Add(entity);
 
@@ -39,7 +28,7 @@ namespace ImageGallery.BLL.Services
 
             using var stream = File.OpenWrite(path);
 
-            await file.CopyToAsync(stream);
+            await model.File.CopyToAsync(stream);
         }
 
         public async Task Delete(int id)
