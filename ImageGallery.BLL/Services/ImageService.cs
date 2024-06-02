@@ -30,7 +30,7 @@ namespace ImageGallery.BLL.Services
 
             await context.SaveChangesAsync();
 
-            var fileId = entity.Id.ToString();
+            var fileId = entity.Id;
 
             var path = Path.Combine(currentDirectory, "Images", $"{fileId}{extension}");
 
