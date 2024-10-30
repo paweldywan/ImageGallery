@@ -32,7 +32,7 @@ namespace ImageGallery.Server
 
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            services.AddSqlServer<ImageGalleryContext>(connectionString, o => o.MigrationsAssembly("ImageGallery.DAL"));
+            services.AddNpgsql<ImageGalleryContext>(connectionString);
 
             var app = builder.Build();
 
